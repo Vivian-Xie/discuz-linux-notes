@@ -103,6 +103,7 @@ crontab -e
 
 
 6. 一些可能存在的愚蠢错误：
+7. 
 在2.中没有把backup.pub生成在正确的默认文件夹，就需要让服务器知道这个文件在哪里
 ```
 find /root -name "backup*"
@@ -112,7 +113,8 @@ ssh-add /path/to/your/.pub
 rsync -avz -e "ssh -i /path/to/your/.pub" /home/data/discuz_$(date +%Y-%m-%d).sql user@target-server:/backup
 ```
 
-7. 一些可能有用的命令
+7. 一些可能有用的命令(discuz)
+
 -备份数据
 #mysqldump -uusername -ppassword discuz > discuz_2010-04-01.sql
 

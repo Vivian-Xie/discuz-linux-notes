@@ -22,8 +22,11 @@ sudo apt install cron
 ssh-keygen -t rsa #在源服务器上生成SSH密钥
 ```
 Generating public/private rsa key pair.
+
 Enter file in which to save the key (/root/.ssh/id_rsa):文件名
+
 Enter passphrase (empty for no passphrase):不想要可以直接enter跳过
+
 
 3. 复制公钥到备份服务器
 ```
@@ -40,6 +43,7 @@ ssh -v -i /root/.ssh/id_rsa/文件名 user@target-server
 ```
 确保密钥文件 chmod 权限至少是600
 
+
 4.编写 rsync 备份脚本
 接下来，可以创建一个脚本来运行rsync命令。假设要备份/home/user/data目录到目标服务器的/backup/data目录：
 ```
@@ -53,7 +57,7 @@ rsync -avz --delete /home/user/data user@target-server:/backup/data
 - -v 表示详细模式，显示更多信息。
 - -z 表示压缩，减少数据传输量。
 - --delete 表示删除目的地有但源目录没有的文件。
-```
+
 ```
 chmod +x backup.sh
 ```

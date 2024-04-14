@@ -1,4 +1,54 @@
 # discuz-linux-notes
+## Debian搭建Discuz论坛
+
+搭建LAMP架构
+
+apt install -y php
+
+安装完成后重启apache:
+
+systemctl restart apache2
+
+接着安装mariadb:
+
+apt install -y mariadb-server
+
+安装完成后会自动启动，这里要注意apache服务器和mariadb服务器是否在同一台服务器上，默认mariadb启用的是127.0.0.1:3306也就是本地的服务，如果需要和apache一起使用就去修改监听端口
+
+vim /etc/mysql/mariadb.conf.d/50-server.cnf
+
+修改bind-addrss的地址修改为0.0.0.0让外部主机都能访问到mariadb服务
+
+下载discuz论坛软件包到服务器本地（只需要软件包中的upload文件）
+
+创建网站目录
+
+mkdir /www/var/html
+
+cp -ar /upload/* /www/var/html
+
+后续去浏览器中安装
+
+修改目录属主或者是修改文件的权限
+
+chown webuser.webuser /webdata/discuz -R
+
+chmod 777 ** 这个需要一个一个文件去修改很麻烦，修改属主会快很多
+
+安装依赖包
+
+apt install -y php-mysqli
+
+systemctl restart apache2
+
+apt install -y php-xml
+
+systemctl restart apache2
+
+浏览器下一步
+
+
+
 
 ## 穷鬼必备：服务器每日定时备份
 ## crontab+rsync全自动脚本

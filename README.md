@@ -19,6 +19,7 @@ vim /etc/mysql/mariadb.conf.d/50-server.cnf
 
 修改bind-addrss的地址修改为0.0.0.0让外部主机都能访问到mariadb服务
 
+
 下载discuz论坛软件包到服务器本地（只需要软件包中的upload文件）
 
 创建网站目录
@@ -26,6 +27,19 @@ vim /etc/mysql/mariadb.conf.d/50-server.cnf
 mkdir /www/var/html
 
 cp -ar /upload/* /www/var/html
+
+
+修改 Apache 的 000-default.conf 文件
+
+sudo nano /etc/apache2/sites-available/000-default.conf
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
 
 后续去浏览器中安装
 

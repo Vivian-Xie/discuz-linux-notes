@@ -182,7 +182,8 @@ rsync -avz -e "ssh -i /path/to/your/.pub" /home/data/discuz_$(date +%Y-%m-%d).sq
 7. 一些可能有用的命令(discuz)
 
 -备份数据
-#mysqldump -uusername -ppassword discuz > discuz_2010-04-01.sql
+#mysqldump -u root -p ultrax > /home/data/backup-05-09.sql
+需要输入密码！
 
 这样就把discuz数据库所有的表结构和数据备份到discuz_2010-04-01.sql里了，
 如果数据量大会占用很大空间，这时可以利用gzip压缩数据，

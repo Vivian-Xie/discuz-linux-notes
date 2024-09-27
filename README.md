@@ -1,7 +1,7 @@
 # discuz-linux-notes
 ## Debian搭建Discuz论坛
 
-适用前提：连宝塔都不敢用，裸搭discuz的站友
+适用前提：裸搭discuz
 
 搭建LAMP架构
 

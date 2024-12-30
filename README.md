@@ -63,7 +63,75 @@ systemctl restart apache2
 
 浏览器下一步
 
+## acme.sh 强制刷新脚本，傻逼宝塔滚蛋
 
+### 安装 acme.sh
+
+
+```bash
+curl  https://get.acme.sh | sh
+source ~/.bashrc
+acme.sh --version
+```
+
+注册 Let’s Encrypt 账户：
+```
+acme.sh --register-account -m my@example.com --server letsencrypt
+```
+
+设置 Let’s Encrypt 为默认 CA
+```
+acme.sh --set-default-ca --server letsencrypt
+```
+HTTP验证
+```
+acme.sh --issue \
+  -d xxx.club \
+  -w /www/wwwroot/server \
+  --server letsencrypt
+```
+
+安装证书
+
+acme.sh 默认把证书放在 ~/.acme.sh/域名/ 下。如果你需要在系统中统一管理，比如放到 /etc/ssl/xxx.com/，可使用 --install-cert 命令来自动部署。
+自动部署和重载
+```
+acme.sh --install-cert -d renheng99.club \
+  --key-file       /etc/ssl/renheng99.club/privkey.pem \
+  --fullchain-file /etc/ssl/renheng99.club/fullchain.pem \
+  --reloadcmd      "service nginx reload" \
+  --server         letsencrypt
+```
+
+然后在你的 Nginx 配置（示例 /www/server/panel/vhost/nginx/xxx.club.conf）写：
+
+server {
+    listen 443 ssl http2;
+    server_name xxx.club;
+
+    ssl_certificate      /etc/ssl/xxx.club/fullchain.pem;
+    ssl_certificate_key  /etc/ssl/xxx.club/privkey.pem;
+
+    root /www/wwwroot/server;
+    index index.html index.php;
+    # ...
+    
+}
+
+保存后：
+```
+nginx -t
+nginx -s reload
+```
+
+即可生效。
+### 配置自动续签 (Cron)
+1. 默认自动安装的定时任务
+
+acme.sh 安装后会自动在 crontab -l 中生成一条每天运行的任务：
+```
+0 0 * * *  "/root/.acme.sh"/acme.sh --cron --home "/root/.acme.sh" > /dev/null
+```
 
 
 ## 穷鬼必备：服务器每日定时备份
